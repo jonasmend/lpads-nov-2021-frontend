@@ -1,0 +1,171 @@
+<h3>Animais</h3>
+<p-table [columns]="cols" [value]="animais" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
+            <th>
+              Editor
+              <button class="btn btn-primary" (click)="showBasicDialog()">
+                <i class="fas fa-plus" style="font-size: 14px;"></i>
+              </button>
+              <p-dialog header="Cadastro de animal" [(visible)]="displayBasic" [style]="{width: '50vw'}" [baseZIndex]="10000">
+                <app-animal-form></app-animal-form>
+                <p-footer>
+                  <!--button type="button" pButton icon="pi pi-check" (click)="displayBasic=false" label="Salvar"></button--->
+                  <button type="button" pButton icon="pi pi-times" (click)="displayBasic=false" label="Cancelar" class="ui-button-secondary"></button>
+                </p-footer>
+              </p-dialog>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-animais let-columns="columns">
+      <tr>
+          <td *ngFor="let col of columns">
+              {{ col.subfield ?  animais[col.field][col.subfield] : animais[col.field] }}
+          </td>
+          <td>
+            <span class="float-right">
+              <button class="btn btn-outline-warning mb-1 btn-sm" (click)="showBasicNewDialog(animais)">
+                <i class="pi pi-replay"></i>
+              </button>
+              <p-dialog header="Atualizar cadastro de animal" [(visible)]="displayNewBasic" [style]="{width: '50vw'}" [baseZIndex]="10000" >
+
+                <form class="needs-validation" novalidate [formGroup]="form" style="padding-top: 10px;">
+                  <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                      <label for="nome">Nome</label>
+                      <input type="text" class="form-control" id="nome" placeholder="Rex" formControlName="nome" [ngClass]="{ 'is-invalid': submitted && hasError('nome')}">
+                      <div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['required']">
+                        Informe um nome válido.
+                      </div>
+                      <!--div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['minlength']">
+                        O nome precisa ter no mínimo {{ hasError('nome')['minlength'].requiredLength }} caracteres.
+                      </div>
+                      <div-- class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['maxlength']">
+                        O nome precisa ter no máximo {{ hasError('nome')['maxlength'].requiredLength }} caracteres.
+                      </div-->
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                      <label for="nascimento">Data de Nascimento</label>
+                    </div>
+                  </div>
+                  <div class="p-grid ui-fluid" style="margin-top: -30px;margin-left: -22px;">
+                    <div class="p-col-12 p-md-4">
+                      <input type="text" class="form-control" id="nascimento" formControlName="nascimento" readonly >
+                      <!--p-calendar formControlName="nascimento" dateFormat="dd.mm.yy" [ngClass]="{ 'is-invalid': submitted && hasError('nascimento')}" [monthNavigator]="true" [yearNavigator]="true" yearRange="1950:2020"></p-calendar-->
+                      <!--div class="invalid-feedback" *ngIf="hasError('cpf') && hasError('dataNascimento')['required']">
+                        Informe uma data válido.
+                      </div>
+                      <div- class="invalid-feedback" *ngIf="hasError('dataNascimento') && hasError('dataNascimento')['minlength']">
+                        O nome precisa ter no mínimo {{ hasError('dataNascimento')['minlength'].requiredLength }} caracteres.
+                      </div->
+                      <div-- class="invalid-feedback" *ngIf="hasError('dataNascimento') && hasError('dataNascimento')['maxlength']">
+                        O nome precisa ter no máximo {{ hasError('dataNascimento')['maxlength'].requiredLength }} caracteres.
+                      </div-->
+                    </div>
+                  </div>
+
+                  <!--div class="form-row">
+                    <div class="col-md-6 mb-3">
+                      <label for="cpf">Telefone</label>
+                      <input type="text" class="form-control" id="telefone" placeholder="99600-0000" formControlName="telefone" [ngClass]="{ 'is-invalid': submitted && hasError('telefone')}">
+                      <div class="invalid-feedback" *ngIf="hasError('telefone') && hasError('telefone')['required']">
+                        Informe um telefone válido.
+                      </div>
+                    </div>
+                  </div-->
+
+                  <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                      <label for="cliente">Cliente</label>
+                      <p-dropdown [options]="clientes" formControlName="cliente"
+                        placeholder="Selecione um cliente" optionLabel="nome" [showClear]="true"></p-dropdown>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                      <label for="especie">Espécie</label>
+                      <input type="text" class="form-control" id="especie" formControlName="especie" readonly>
+                      <!--p-dropdown [options]="animais.especie" formControlName="especie"
+                        placeholder="Selecione uma espécie:" optionLabel="descricao" [showClear]="true" aria-readonly="true"></p-dropdown-->
+                    </div>
+                  </div>
+
+                  <div style="margin-top: 10px;">
+                    <button type="submit" class="btn btn-primary" (click)="onSubmit()">Salvar</button>
+                    <button type="button" class="btn btn-default" (click)="onCancel()">Limpar</button>
+                  </div>
+                </form>
+
+                <p-footer>
+                  <!--button type="button" pButton icon="pi pi-check" (click)="displayNewBasic=false" label="Salvar"></button-->
+                  <button type="button" pButton icon="pi pi-times" (click)="displayNewBasic=false" label="Cancelar" class="ui-button-secondary"></button>
+                </p-footer>
+              </p-dialog>
+
+              <button class="btn btn-outline-danger mb-1 btn-sm" (click)="onDelete(animais)" >
+                <i class="fas fa-trash-alt"></i>
+              </button>
+
+              <button class="btn btn-outline-secondary mb-1 btn-sm" >
+                <i class="fas fa-archive"></i>
+              </button>
+            </span>
+          </td>
+      </tr>
+  </ng-template>
+</p-table>
+<!--div>
+  <p *ngFor="let animal of animais">
+    {{ animal.cliente.nome }}
+  </p>
+</div-->
+
+
+<!--div class="card-body">
+  <table class="table table-hover" *ngIf="clientes$ | async as clientes">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Cliente</th>
+        <th>Nascimento</th>
+        <th style="text-align: center;">CPF</th>
+        <th>Convênio</th>
+        <th>Telefone</th>
+        <th style="text-align: center;">E-mail</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cliente of clientes">
+        <td>{{ cliente.id }}</td>
+        <td>{{ cliente.nome }}</td>
+        <td>{{ cliente.dataNascimento | date:'dd/MM/yyy' }}</td>
+        <td>{{ cliente.cpf }}</td>
+        <td style="text-align: center;">{{ cliente.convenio }}</td>
+        <td>{{ cliente.telefone }}</td>
+        <td>{{ cliente.email }}</td>
+        <td>
+          <span class="float-right">
+            <button class="btn btn-outline-warning mb-1 btn-sm" >
+              <i class="fa fa-refresh" aria-hidden="true"></i>
+            </button>
+
+            <button class="btn btn-outline-danger mb-1 btn-sm" >
+              <i class="pi-times"></i>
+            </button>
+
+            <button class="btn btn-outline-secondary mb-1 btn-sm" >
+              <i class="pi-folder-open"></i>
+            </button>
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div-->

@@ -1,0 +1,152 @@
+{
+  "cliente": [
+    {
+      "id": 1,
+      "nome": "Jonas",
+      "dataNascimento": "13/12/2001",
+      "cpf": "222.222.222-22",
+      "convenio": "S",
+      "telefone": "99000-1312",
+      "email": "jonas_mendonca@email.com"
+    },
+    {
+      "id": 2,
+      "nome": "Denis",
+      "dataNascimento": "05/07/1993",
+      "cpf": "000.000.000-00",
+      "convenio": "S",
+      "telefone": "99000-1111",
+      "email": "denis_mendonca@email.com"
+    },
+    {
+      "id": 3,
+      "nome": "Maria",
+      "dataNascimento": "02/08/1996",
+      "cpf": "111.111.111-11",
+      "convenio": "N",
+      "telefone": "99000-2222",
+      "email": "maria_silva@email.com"
+    },
+    {
+      "id": 4,
+      "nome": "Luzia",
+      "cpf": "333.333.333-33"
+    },
+    {
+      "id": 6,
+      "nome": "Letícia",
+      "dataNascimento": "2002-07-02T03:00:00.000Z",
+      "cpf": "888.888.888-88",
+      "convenio": "N",
+      "telefone": "99606-7777",
+      "email": "leticia@email.com"
+    },
+    {
+      "id": 7,
+      "nome": "Nelson",
+      "dataNascimento": "1961-01-30T03:00:00.000Z",
+      "cpf": "147.147.147-47",
+      "convenio": "S",
+      "telefone": "99600-0000",
+      "email": "nelson@email.com"
+    }
+  ],
+
+  "especie": [
+    {
+      "id": 1,
+      "descricao": "Pastor Alemão"
+    },
+    {
+      "id": 2,
+      "descricao": "Pastor Belga"
+    },
+    {
+      "id": 3,
+      "descricao": "PitBull"
+    },
+    {
+      "id": 4,
+      "descricao": "Pincher"
+    },
+    {
+      "id": 5,
+      "descricao": "Boxer"
+    }
+  ],
+
+  "animal": [
+    {
+      "id": 1,
+      "cliente": {
+        "id": 1,
+        "nome": "Jonas",
+        "dataNascimento": "13/12/2001",
+        "cpf": "222.222.222-22",
+        "convenio": "S",
+        "telefone": "99000-1312",
+        "email": "jonas_mendonca@email.com"
+      },
+      "especie": {
+        "id": 1,
+        "descricao": "Pastor Alemão"
+      },
+      "nome": "Rex",
+      "nascimento": "09/09/2019"
+    },
+    {
+      "id": 2,
+      "cliente": {
+        "id": 3,
+        "nome": "Maria",
+        "dataNascimento": "02/08/1996",
+        "cpf": "111.111.111-11",
+        "convenio": "N",
+        "telefone": "99000-2222",
+        "email": "maria_silva@email.com"
+      },
+      "especie": {
+        "id": 5,
+        "descricao": "Boxer"
+      },
+      "nome": "Bolt",
+      "nascimento": "25/04/2018"
+    },
+    {
+      "id": 3,
+      "cliente": {
+        "id": 2,
+        "nome": "Denis",
+        "dataNascimento": "05/07/1993",
+        "cpf": "000.000.000-00",
+        "convenio": "S",
+        "telefone": "99000-1111",
+        "email": "denis_mendonca@email.com"
+      },
+      "especie": {
+        "id": 4,
+        "descricao": "Pincher"
+      },
+      "nome": "Amora",
+      "nascimento": "19/01/2020"
+    },
+    {
+      "id": 4,
+      "nome": "Bilu",
+      "nascimento": "2020-02-11T03:00:00.000Z",
+      "cliente": {
+        "id": 7,
+        "nome": "Nelson",
+        "dataNascimento": "1961-01-30T03:00:00.000Z",
+        "cpf": "147.147.147-47",
+        "convenio": "S",
+        "telefone": "99600-0000",
+        "email": "nelson@email.com"
+      },
+      "especie": {
+        "id": 3,
+        "descricao": "PitBull"
+      }
+    }
+  ]
+}

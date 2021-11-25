@@ -1,0 +1,87 @@
+<form class="needs-validation" novalidate [formGroup]="form" style="padding-top: 10px;">
+  <div class="form-row">
+    <div class="col-md-12 mb-3">
+      <label for="nome">Nome do Cliente</label>
+      <input type="text" class="form-control" id="nome" placeholder="Nome do Cliente" formControlName="nome" [ngClass]="{ 'is-invalid': submitted && hasError('nome')}">
+      <div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['required']">
+        Informe um nome válido.
+      </div>
+      <div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['minlength']">
+        O nome precisa ter no mínimo {{ hasError('nome')['minlength'].requiredLength }} caracteres.
+      </div>
+      <div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['maxlength']">
+        O nome precisa ter no máximo {{ hasError('nome')['maxlength'].requiredLength }} caracteres.
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-12 mb-3">
+      <label for="dataNascimento">Data de Nascimento</label>
+    </div>
+  </div>
+  <div class="p-grid ui-fluid" style="margin-top: -30px;margin-left: -22px;">
+    <div class="p-col-12 p-md-4">
+      <p-calendar formControlName="nascimento" dateFormat="dd.mm.yy" [ngClass]="{ 'is-invalid': submitted && hasError('nascimento')}" [monthNavigator]="true" [yearNavigator]="true" yearRange="1950:2020" [readonlyInput]="true"></p-calendar>
+      <div class="invalid-feedback" *ngIf="hasError('nascimento') && hasError('nascimento')['required']">
+        Informe uma data válido.
+      </div>
+      <!--div class="invalid-feedback" *ngIf="hasError('nascimento') && hasError('nascimento')['minlength']">
+        O nome precisa ter no mínimo {{ hasError('nascimento')['minlength'].requiredLength }} caracteres.
+      </div>
+      <div-- class="invalid-feedback" *ngIf="hasError('nascimento') && hasError('nascimento')['maxlength']">
+        O nome precisa ter no máximo {{ hasError('nascimento')['maxlength'].requiredLength }} caracteres.
+      </div-->
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col-md-6 mb-3">
+      <label for="cpf">CPF</label>
+      <input type="text" class="form-control" id="cpf" placeholder="123.123.123-12" formControlName="cpf" [ngClass]="{ 'is-invalid': submitted && hasError('cpf')}" readonly>
+      <div class="invalid-feedback" *ngIf="hasError('cpf') && hasError('cpf')['required']">
+        Informe um CPF válido.
+      </div>
+      <div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['minlength']">
+        O nome precisa ter no mínimo {{ hasError('nome')['minlength'].requiredLength }} caracteres.
+      </div>
+      <div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['maxlength']">
+        O nome precisa ter no máximo {{ hasError('nome')['maxlength'].requiredLength }} caracteres.
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col-md-6 mb-3">
+      <label for="cpf">Convênio</label>
+      <input type="text" class="form-control" id="convenio" placeholder="S" formControlName="convenio" [ngClass]="{ 'is-invalid': submitted && hasError('convenio')}">
+      <div class="invalid-feedback" *ngIf="hasError('convenio') && hasError('convenio')['required']">
+        Campo inválido.
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col-md-6 mb-3">
+      <label for="cpf">Telefone</label>
+      <input type="text" class="form-control" id="telefone" placeholder="99600-0000" formControlName="telefone" [ngClass]="{ 'is-invalid': submitted && hasError('telefone')}">
+      <div class="invalid-feedback" *ngIf="hasError('telefone') && hasError('telefone')['required']">
+        Informe um telefone válido.
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col-md-6 mb-3">
+      <label for="cpf">E-mail</label>
+      <input type="text" class="form-control" id="email" placeholder="nome@email.com" formControlName="email" [ngClass]="{ 'is-invalid': submitted && hasError('email')}">
+      <div class="invalid-feedback" *ngIf="hasError('email') && hasError('email')['required']">
+        Informe um e-mail válido.
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <button type="submit" class="btn btn-primary" (click)="onSubmit()">Salvar</button>
+    <button type="button" class="btn btn-default" (click)="onCancel()">Limpar</button>
+  </div>
+</form>

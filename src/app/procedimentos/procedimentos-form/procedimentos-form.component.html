@@ -1,0 +1,54 @@
+<form class="needs-validation" novalidate [formGroup]="form" style="padding-top: 10px;">
+  <div class="form-row">
+    <div class="col-md-12 mb-3">
+      <label for="nome">Descrição</label>
+      <input type="text" class="form-control" id="nome" placeholder="Curativo, Pomada..." formControlName="descricao" [ngClass]="{ 'is-invalid': submitted && hasError('descricao')}">
+      <div class="invalid-feedback" *ngIf="hasError('descricao') && hasError('descricao')['required']">
+        Informe um nome válido.
+      </div>
+      <div class="invalid-feedback" *ngIf="hasError('descricao') && hasError('descricao')['minlength']">
+        O nome precisa ter no mínimo {{ hasError('descricao')['minlength'].requiredLength }} caracteres.
+      </div>
+      <div class="invalid-feedback" *ngIf="hasError('descricao') && hasError('descricao')['maxlength']">
+        O nome precisa ter no máximo {{ hasError('descricao')['maxlength'].requiredLength }} caracteres.
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-6 mb-3">
+      <label for="valor">Valor</label>
+      <input type="text" class="form-control" formControlName="valor" [ngClass]="{ 'is-invalid': submitted && hasError('valor')}">
+
+      <div class="invalid-feedback" *ngIf="hasError('valor') && hasError('valor')['required']">
+        Informe uma data válido.
+      </div>
+      <!--div class="invalid-feedback" *ngIf="hasError('nascimento') && hasError('nascimento')['minlength']">
+        O nome precisa ter no mínimo {{ hasError('nascimento')['minlength'].requiredLength }} caracteres.
+      </div>
+      <div-- class="invalid-feedback" *ngIf="hasError('nascimento') && hasError('nascimento')['maxlength']">
+        O nome precisa ter no máximo {{ hasError('nascimento')['maxlength'].requiredLength }} caracteres.
+      </div-->
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col-md-6 mb-3">
+      <label for="estoque">Estoque</label>
+      <input type="text" class="form-control" id="estoque" formControlName="estoque" [ngClass]="{ 'is-invalid': submitted && hasError('estoque')}">
+      <div class="invalid-feedback" *ngIf="hasError('estoque') && hasError('estoque')['required']">
+        Informe um CPF válido.
+      </div>
+      <div class="invalid-feedback" *ngIf="hasError('estoque') && hasError('estoque')['minlength']">
+        O nome precisa ter no mínimo {{ hasError('estoque')['minlength'].requiredLength }} caracteres.
+      </div>
+      <div class="invalid-feedback" *ngIf="hasError('estoque') && hasError('estoque')['maxlength']">
+        O nome precisa ter no máximo {{ hasError('estoque')['maxlength'].requiredLength }} caracteres.
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <button type="submit" class="btn btn-primary" (click)="onSubmit()">Salvar</button>
+    <button type="button" class="btn btn-default" (click)="onCancel()">Limpar</button>
+  </div>
+</form>

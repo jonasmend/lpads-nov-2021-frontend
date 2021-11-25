@@ -1,0 +1,204 @@
+<h3>Fichas de Atendimento</h3>
+<p-table [columns]="cols" [value]="fichas" [lazy]="true"
+  [paginator]="true" [rows]="10" [showCurrentPageReport]="true"  [loading]="!fichas"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
+            <th>
+              Editor
+              <button class="btn btn-primary" (click)="showBasicDialog()">
+                <i class="pi pi-plus" style="font-size: 14px;"></i>
+              </button>
+              <p-dialog header="Cadastro de ficha" [(visible)]="displayBasic" [style]="{width: '50vw'}" [baseZIndex]="10000">
+
+                <p-footer>
+                  <!--button type="button" pButton icon="pi pi-check" (click)="displayBasic=false" label="Salvar"></button-->
+                  <button type="button" pButton icon="pi pi-times" (click)="displayBasic=false" label="Cancelar" class="ui-button-secondary"></button>
+                </p-footer>
+              </p-dialog>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-fichas let-columns="columns">
+      <tr>
+          <td *ngFor="let col of columns">
+              {{ col.subfield ? fichas[col.field][col.subfield] : fichas[col.field] }}
+          </td>
+          <td>
+            <span class="float-right">
+              <!--button class="btn btn-outline-warning mb-1 btn-sm" (click)="showBasicNewDialog()" (click)="onEdit(clientes.id)" >
+                <i class="pi pi-replay" aria-hidden="true"></i>
+              <button>
+              <p-dialog header="Atualizar cadastro de cliente" [(visible)]="displayNewBasic" [style]="{width: '50vw'}" [baseZIndex]="10000" >
+                <app-cliente-att-form [clienteId]="clienteEdit.id"></app-cliente-att-form>
+                <p-footer>
+                  <button type="button" pButton icon="pi pi-check" (click)="displayNewBasic=false" label="Salvar"></button>
+                  <button type="button" pButton icon="pi pi-times" (click)="displayNewBasic=false" label="Cancelar" class="ui-button-secondary"></button>
+                </p-footer>
+              </p-dialog-->
+              <button [disabled]="fichas.finalizado == 'S'" class="btn btn-outline-warning mb-1 btn-sm" (click)="showBasicNewDialog(fichas)" >
+                <i class="fas fa-calendar-plus"></i>
+              </button>
+              <p-dialog header="Adicionar procedimento à ficha" [(visible)]="displayNewBasic" [style]="{width: '50vw'}" [baseZIndex]="10000" >
+
+                <form class="needs-validation" novalidate [formGroup]="formPR" style="padding-top: 10px;">
+                  <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                      <label for="fichaAtendimento">Ficha Atendimento</label>
+                      <input type="text" class="form-control" id="fichaAtendimento" formControlName="fichaAtendimento" readonly>
+                      <!--div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['required']">
+                        Informe um nome válido.
+                      </div-->
+                      <!--div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['minlength']">
+                        O nome precisa ter no mínimo {{ hasError('nome')['minlength'].requiredLength }} caracteres.
+                      </div>
+                      <div-- class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['maxlength']">
+                        O nome precisa ter no máximo {{ hasError('nome')['maxlength'].requiredLength }} caracteres.
+                      </div-->
+                    </div>
+                  </div>
+
+                  <!--div class="form-row">
+                    <div class="col-md-6 mb-3">
+                      <label for="cpf">Telefone</label>
+                      <input type="text" class="form-control" id="telefone" placeholder="99600-0000" formControlName="telefone" [ngClass]="{ 'is-invalid': submitted && hasError('telefone')}">
+                      <div class="invalid-feedback" *ngIf="hasError('telefone') && hasError('telefone')['required']">
+                        Informe um telefone válido.
+                      </div>
+                    </div>
+                  </div-->
+
+                  <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                      <label for="procedimento">Procedimento</label>
+                      <p-dropdown [options]="procedimentos" formControlName="procedimento"
+                        placeholder="Selecione um procedimento" optionLabel="descricao" [showClear]="true"></p-dropdown>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                      <label for="quantidade">Quantidade</label><br>
+                      <!--button (click)="plusQTD()"><i class="fas fa-plus-circle"></i></button-->
+                      <input type="text" class="form-control" id="quantidade"  formControlName="quantidade">
+                      <!--p>{{ quantidade }}</p>
+                      <button (click)="minusQTD()"><i class="fas fa-minus-circle"></i></button-->
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                      <label for="total">Total</label>
+                      <input type="text" class="form-control" id="total" formControlName="total" readonly>
+                    </div>
+                  </div>
+
+                  <div style="margin-top: 10px;">
+                    <button type="submit" class="btn btn-primary" (click)="onSubmitPR()">Salvar</button>
+                    <button type="button" class="btn btn-default" (click)="onCancelPR()">Limpar</button>
+                  </div>
+                </form>
+
+                <p-footer>
+                  <!--button type="button" pButton icon="pi pi-check" (click)="displayNewBasic=false" label="Salvar"></button-->
+                  <button type="button" pButton icon="pi pi-times" (click)="displayNewBasic=false" label="Cancelar" class="ui-button-secondary"></button>
+                </p-footer>
+              </p-dialog>
+
+              <button class="btn btn-outline-secondary mb-1 btn-sm" (click)="showInformacoes(fichas)">
+                <i class="fas fa-clipboard-list"></i>
+              </button>
+              <p-dialog header="Informações da ficha" [(visible)]="informacoes" [style]="{width: '50vw'}" [baseZIndex]="10000">
+                <h5>Ficha</h5>
+                <div *ngIf="fichaInformacao">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Animal</th>
+                        <th scope="col">Dono</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Finalizado</th>
+                        <th scope="col">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">{{ fichaInformacao.id }}</th>
+                        <td>{{ fichaInformacao.animal.nome }}</td>
+                        <td>{{ fichaInformacao.animal.cliente.nome }}</td>
+                        <td>{{ fichaInformacao.dataAtendimento }}</td>
+                        <td>{{ fichaInformacao.finalizado == 'S' ? 'Sim' : 'Não' }}</td>
+                        <td>{{ fichaInformacao.total }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div>
+                    <!--p-table [columns]="colsProc" [value]="procedimentosRealizados" [lazy]="true" [paginator]="true"
+                      [rows]="10" [loading]="!procedimentosRealizados">
+                      <ng-template pTemplate="header" let-columns>
+                          <tr>
+                              <th *ngFor="let col of columns">
+                                  {{col.header}}
+                              </th>
+                          </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-rowData let-columns="columns">
+                          <tr>
+                              <td *ngFor="let col of columns">
+                                {{ col.subfield ? procedimentosRealizados[col.field][col.subfield] : procedimentosRealizados[col.field] }}
+                              </td>
+                          </tr>
+                      </ng-template>
+                    </p-table-->
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Animal</th>
+                          <th scope="col">Procedimento</th>
+                          <th scope="col">Quantidade</th>
+                          <th scope="col">Total</th>
+                        </tr>
+                      </thead>
+                      <tbody *ngFor="let pR of procedimentosRealizados">
+                        <tr *ngIf="fichaInformacao.id == pR.fichaAtendimento.id">
+                          <th scope="row">{{ pR.id }}</th>
+                          <td>{{ pR.fichaAtendimento.animal.nome }}</td>
+                          <td>{{ pR.procedimento.descricao }}</td>
+                          <td>{{ pR.quantidade }}</td>
+                          <td>{{ pR.total }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <!--p>Animal: {{ fichaInformacao.animal.nome }}</p>
+                  <p>Dono: {{ fichaInformacao.animal.cliente.nome }}</p>
+                  <p>Data do atendimento: {{ fichaInformacao.dataAtendimento }}</p>
+                  <p>Total: {{ fichaInformacao.total }}</p-->
+                </div>
+                <p-footer>
+                  <!--button type="button" pButton icon="pi pi-check" (click)="displayBasic=false" label="Salvar"></button-->
+                  <button type="button" pButton icon="pi pi-times" (click)="informacoes=false" label="fechar" class="ui-button-secondary"></button>
+                </p-footer>
+              </p-dialog>
+
+              <button class="btn btn-outline-success mb-1 btn-sm" (click)="showFinalizar(fichas)" >
+                <i class="fas fa-check"></i>
+              </button>
+              <p-dialog header="Finalizar ficha" [(visible)]="finalizar" [style]="{width: '50vw'}" [baseZIndex]="10000">
+                <p>Tem certeza que deseja finalizar esta ficha? Você não poderá altera-la mais tarde.</p>
+                <p-footer>
+                  <button type="button" pButton icon="pi pi-check" (click)="onConfirmeFinalizar()" label="Sim"></button>
+                  <button type="button" pButton icon="pi pi-times" (click)="finalizar=false" label="Não" class="ui-button-secondary"></button>
+                </p-footer>
+              </p-dialog>
+
+            </span>
+          </td>
+      </tr>
+  </ng-template>
+</p-table>

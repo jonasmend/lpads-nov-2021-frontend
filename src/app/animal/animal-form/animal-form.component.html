@@ -1,0 +1,67 @@
+<form class="needs-validation" novalidate [formGroup]="form" style="padding-top: 10px;">
+  <div class="form-row">
+    <div class="col-md-12 mb-3">
+      <label for="nome">Nome</label>
+      <input type="text" class="form-control" id="nome" placeholder="Rex" formControlName="nome" [ngClass]="{ 'is-invalid': submitted && hasError('nome')}">
+      <div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['required']">
+        Informe um nome válido.
+      </div>
+      <!--div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['minlength']">
+        O nome precisa ter no mínimo {{ hasError('nome')['minlength'].requiredLength }} caracteres.
+      </div>
+      <div-- class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['maxlength']">
+        O nome precisa ter no máximo {{ hasError('nome')['maxlength'].requiredLength }} caracteres.
+      </div-->
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-12 mb-3">
+      <label for="nascimento">Data de Nascimento</label>
+    </div>
+  </div>
+  <div class="p-grid ui-fluid" style="margin-top: -30px;margin-left: -22px;">
+    <div class="p-col-12 p-md-4">
+      <p-calendar formControlName="nascimento" dateFormat="dd.mm.yy" [ngClass]="{ 'is-invalid': submitted && hasError('nascimento')}" [monthNavigator]="true" [yearNavigator]="true" yearRange="1950:2020"></p-calendar>
+      <!--div class="invalid-feedback" *ngIf="hasError('cpf') && hasError('dataNascimento')['required']">
+        Informe uma data válido.
+      </div>
+      <div- class="invalid-feedback" *ngIf="hasError('dataNascimento') && hasError('dataNascimento')['minlength']">
+        O nome precisa ter no mínimo {{ hasError('dataNascimento')['minlength'].requiredLength }} caracteres.
+      </div->
+      <div-- class="invalid-feedback" *ngIf="hasError('dataNascimento') && hasError('dataNascimento')['maxlength']">
+        O nome precisa ter no máximo {{ hasError('dataNascimento')['maxlength'].requiredLength }} caracteres.
+      </div-->
+    </div>
+  </div>
+
+  <!--div class="form-row">
+    <div class="col-md-6 mb-3">
+      <label for="cpf">Telefone</label>
+      <input type="text" class="form-control" id="telefone" placeholder="99600-0000" formControlName="telefone" [ngClass]="{ 'is-invalid': submitted && hasError('telefone')}">
+      <div class="invalid-feedback" *ngIf="hasError('telefone') && hasError('telefone')['required']">
+        Informe um telefone válido.
+      </div>
+    </div>
+  </div-->
+
+  <div class="form-row">
+    <div class="col-md-6 mb-3">
+      <label for="clienteId">Cliente</label>
+      <p-dropdown [options]="clientes" formControlName="cliente"
+        placeholder="Selecione um cliente" optionLabel="nome" [showClear]="true"></p-dropdown>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col-md-6 mb-3">
+      <label for="clienteId">Espécie</label>
+      <p-dropdown [options]="especies" formControlName="especie"
+        placeholder="Selecione uma espécie:" optionLabel="descricao" [showClear]="true"></p-dropdown>
+    </div>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <button type="submit" class="btn btn-primary" (click)="onSubmit()">Salvar</button>
+    <button type="button" class="btn btn-default" (click)="onCancel()">Limpar</button>
+  </div>
+</form>
